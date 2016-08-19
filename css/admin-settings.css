@@ -1,0 +1,14 @@
+
+#gateway_settings_dps_pxpay_form input.large-text,
+#gateway_settings_dps_pxpay_form textarea.large-text {
+	width: 99%;
+}
+
+#gateway_settings_dps_pxpay_form input.regular-text {
+	width: 25em;
+}
+
+#gateway_settings_dps_pxpay_form p.dpspxpay-wpsc-opt-admin-test {
+	color: #c00;
+}
+
