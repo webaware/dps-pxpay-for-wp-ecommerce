@@ -348,10 +348,6 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 	* load settings page CSS
 	*/
 	public static function printSettingsCSS() {
-		if (empty($_REQUEST['tab']) || $_REQUEST['tab'] !== 'gateway') {
-			return;
-		}
-
 		echo '<style>';
 		readfile(DPS_PXPAY_WPSC_PLUGIN_ROOT . 'css/admin-settings.css');
 		echo '</style>';
@@ -361,10 +357,6 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 	* load settings page scripts
 	*/
 	public static function printSettingsScript() {
-		if (empty($_REQUEST['tab']) || $_REQUEST['tab'] !== 'gateway') {
-			return;
-		}
-
 		$min = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
 		echo '<script>';

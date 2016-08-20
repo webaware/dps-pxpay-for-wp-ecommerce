@@ -16,7 +16,7 @@
 		}
 	}
 
-	$("input[name='dps_pxpay_wp_ecommerce[useTest]']").change(checkSandbox);
+	$("#wpsc_options_page").on("change", "input[name='dps_pxpay_wp_ecommerce[useTest]']", checkSandbox);
 
 	checkSandbox();
 
