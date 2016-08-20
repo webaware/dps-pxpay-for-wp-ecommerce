@@ -1,6 +1,6 @@
 {
   "name": "dps-pxpay-for-wp-ecommerce",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Integrate DPS PxPay with the WP eCommerce online shop",
   "main": "Gruntfile.js",
   "devDependencies": {

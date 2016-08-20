@@ -93,6 +93,6 @@ Developers can use these filter hooks to modify some invoice properties. Check t
 
 == Changelog ==
 
-### 1.0.0, soon...
+### 1.0.0, 2016-08-20
 
 * initial release
