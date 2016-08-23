@@ -15,7 +15,7 @@ Integrate DPS PxPay with the WP eCommerce online shop
 
 == Description ==
 
-DPS PxPay for WP eCommerce adds a credit card payment gateway for [DPS Payment Express PxPay](https://www.paymentexpress.com/merchant-ecommerce-pxpay) to the [WP eCommerce](https://wordpress.org/plugins/wp-e-commerce/) shopping cart plugin.
+DPS PxPay for WP eCommerce adds a credit card payment gateway for [DPS Payment Express PxPay 2.0](https://www.paymentexpress.com/merchant-ecommerce-pxpay) to the [WP eCommerce](https://wordpress.org/plugins/wp-e-commerce/) shopping cart plugin.
 
 = Sponsorships =
 
@@ -59,7 +59,7 @@ Not yet.
 
 =  Where can I find dummy Credit Card details for testing purposes? =
 
-[Visit this page](https://www.paymentexpress.com/support-merchant-frequently-asked-questions-testing-details)
+[Visit the Payment Express FAQ page for test card numbers](https://www.paymentexpress.com/support-merchant-frequently-asked-questions-testing-details).
 
 = I get an SSL error when my form attempts to connect with DPS =
 
