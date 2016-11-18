@@ -1,15 +1,15 @@
 === DPS PxPay for WP eCommerce ===
 Contributors: webaware
 Plugin Name: DPS PxPay for WP eCommerce
-Plugin URI: http://shop.webaware.com.au/downloads/dps-pxpay-for-wp-ecommerce/
-Author URI: http://webaware.com.au/
+Plugin URI: https://shop.webaware.com.au/downloads/dps-pxpay-for-wp-ecommerce/
+Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=DPS+PxPay+for+WP+eCommerce
 Tags: dps, payment express, pxpay, wp ecommerce
 Requires at least: 4.3
 Tested up to: 4.6
 Stable tag: 1.0.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Integrate DPS PxPay with the WP eCommerce online shop
 

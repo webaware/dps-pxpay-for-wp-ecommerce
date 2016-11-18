@@ -5,7 +5,7 @@ Plugin URI:
 Description: Integrate DPS PxPay with the WP eCommerce online shop
 Version: 1.0.0
 Author: WebAware
-Author URI: http://webaware.com.au/
+Author URI: https://shop.webaware.com.au/
 Text Domain: dps-pxpay-for-wp-ecommerce
 */
 

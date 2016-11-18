@@ -12,7 +12,7 @@
     "grunt-contrib-uglify": "^0.8.0",
     "grunt-pot": "^0.2.1"
   },
-  "author": "WebAware http://webaware.com.au/",
+  "author": "WebAware https://shop.webaware.com.au/",
   "license": "GPL-2.0",
   "private": true
 }
