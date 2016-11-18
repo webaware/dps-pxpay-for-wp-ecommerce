@@ -6,8 +6,8 @@ Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=DPS+PxPay+for+WP+eCommerce
 Tags: dps, payment express, pxpay, wp ecommerce
 Requires at least: 4.3
-Tested up to: 4.6
-Stable tag: 1.0.0
+Tested up to: 4.7
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,7 +91,17 @@ Developers can use these filter hooks to modify some invoice properties. Check t
 
 * [Fork me on GitHub](https://github.com/webaware/dps-pxpay-for-wp-ecommerce)
 
+== Upgrade Notice ==
+
+= 1.0.1 =
+
+tested to WordPress 4.7
+
 == Changelog ==
+
+### 1.0.1, 2016-11-18
+
+* tested to WordPress 4.7
 
 ### 1.0.0, 2016-08-20
 
