@@ -1,18 +1,18 @@
 (function($) {
-	"use strict";
 
 	/**
 	* check whether both the sandbox (test) mode and Stored Payments are selected,
 	* show warning message if they are
 	*/
 	function checkSandbox() {
-		var	useTest = ($("input[name='dps_pxpay_wp_ecommerce[useTest]']:checked").val() == "1");
+		const warning = $(".dpspxpay-wpsc-opt-admin-test");
+		const useTest = $("input[name='dps_pxpay_wp_ecommerce[useTest]']:checked").val() === "1";
 
 		if (useTest) {
-			$(".dpspxpay-wpsc-opt-admin-test").fadeIn();
+			warning.fadeIn();
 		}
 		else {
-			$(".dpspxpay-wpsc-opt-admin-test").hide();
+			warning.hide();
 		}
 	}
 
