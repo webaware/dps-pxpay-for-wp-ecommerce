@@ -4,12 +4,16 @@
   "description": "DPS PxPay for WP eCommerce",
   "main": "Gruntfile.js",
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-compress": "^1.4.1",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "grunt": "^1.0.3",
+    "grunt-babel": "^8.0.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-compress": "^1.4.3",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-uglify": "^2.3.0"
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-eslint": "^21.0.0"
   },
   "author": "WebAware https://shop.webaware.com.au/",
   "license": "GPL-2.0",
