@@ -32,47 +32,34 @@ class DpsPxPayWpscPlugin {
 	* initialise plugin
 	*/
 	private function __construct() {
-		add_action('init', array($this, 'loadTextDomain'));
-		add_filter('plugin_row_meta', array($this, 'addPluginDetailsLinks'), 10, 2);
-		add_action('admin_notices', array($this, 'checkPrerequisites'));
+		add_action('init', 'dps_pxpay_wpsc_load_text_domain');
+		add_filter('plugin_row_meta', [$this, 'addPluginDetailsLinks'], 10, 2);
+		add_action('admin_notices', [$this, 'checkPrerequisites']);
 
 		// register with WP eCommerce
-		add_filter('wpsc_merchants_modules', array($this, 'registerGateway'), 1000);
-		add_action('wpsc_init', array(__CLASS__, 'registerAutoloader'));
+		add_filter('wpsc_merchants_modules', [$this, 'registerGateway'], 1000);
+		add_action('wpsc_init', [__CLASS__, 'registerAutoloader']);
 	}
 
 	/**
 	* register our autoloader (needs to be done *after* WP eCommerce has loaded)
 	*/
 	public static function registerAutoloader() {
-		spl_autoload_register(array(__CLASS__, 'autoload'));
-	}
-
-	/**
-	* load text translations
-	*/
-	public function loadTextDomain() {
-		load_plugin_textdomain('dps-pxpay-for-wp-ecommerce');
+		spl_autoload_register([__CLASS__, 'autoload']);
 	}
 
 	/**
 	* check for required PHP extensions, tell admin if any are missing
 	*/
 	public function checkPrerequisites() {
-		// need at least PHP 5.2.11 for libxml_disable_entity_loader()
-		$php_min = '5.2.11';
-		if (version_compare(PHP_VERSION, $php_min, '<')) {
-			include DPS_PXPAY_WPSC_PLUGIN_ROOT . 'views/requires-php.php';
+		if (!dps_pxpay_wpsc_can_show_admin_notices()) {
+			return;
 		}
 
-		// need these PHP extensions too
-		$prereqs = array('libxml', 'SimpleXML', 'xmlwriter');
-		$missing = array();
-		foreach ($prereqs as $ext) {
-			if (!extension_loaded($ext)) {
-				$missing[] = $ext;
-			}
-		}
+		// need these PHP extensions
+		$missing = array_filter(['libxml', 'pcre', 'SimpleXML', 'xmlwriter'], function($ext) {
+			return !extension_loaded($ext);
+		});
 		if (!empty($missing)) {
 			include DPS_PXPAY_WPSC_PLUGIN_ROOT . 'views/requires-extensions.php';
 		}
@@ -95,10 +82,10 @@ class DpsPxPayWpscPlugin {
 	*/
 	public function addPluginDetailsLinks($links, $file) {
 		if ($file === DPS_PXPAY_WPSC_PLUGIN_NAME) {
-			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/dps-pxpay-for-wp-ecommerce" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
-			$links[] = sprintf('<a href="https://wordpress.org/plugins/dps-pxpay-for-wp-ecommerce/" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
-			$links[] = sprintf('<a href="https://translate.wordpress.org/projects/wp-plugins/dps-pxpay-for-wp-ecommerce" target="_blank">%s</a>', _x('Translate', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
-			$links[] = sprintf('<a href="https://shop.webaware.com.au/donations/?donation_for=DPS+PxPay+for+WP+eCommerce" target="_blank">%s</a>', _x('Donate', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
+			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/dps-pxpay-for-wp-ecommerce" rel="noopener" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
+			$links[] = sprintf('<a href="https://wordpress.org/plugins/dps-pxpay-for-wp-ecommerce/" rel="noopener" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
+			$links[] = sprintf('<a href="https://translate.wordpress.org/projects/wp-plugins/dps-pxpay-for-wp-ecommerce" rel="noopener" target="_blank">%s</a>', _x('Translate', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
+			$links[] = sprintf('<a href="https://shop.webaware.com.au/donations/?donation_for=DPS+PxPay+for+WP+eCommerce" rel="noopener" target="_blank">%s</a>', _x('Donate', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
 		}
 
 		return $links;
@@ -137,12 +124,12 @@ class DpsPxPayWpscPlugin {
 	* @param string $class_name name of class to attempt to load
 	*/
 	public static function autoload($class_name) {
-		static $classMap = array (
+		static $classMap = [
 			'DpsPxPayWpscPayment'				=> 'includes/class.DpsPxPayWpscPayment.php',
 			'DpsPxPayWpscResponse'				=> 'includes/class.DpsPxPayWpscResponse.php',
 			'DpsPxPayWpscResponseRequest'		=> 'includes/class.DpsPxPayWpscResponseRequest.php',
 			'DpsPxPayWpscResponseResult'		=> 'includes/class.DpsPxPayWpscResponseResult.php',
-		);
+		];
 
 		if (isset($classMap[$class_name])) {
 			require DPS_PXPAY_WPSC_PLUGIN_ROOT . $classMap[$class_name];

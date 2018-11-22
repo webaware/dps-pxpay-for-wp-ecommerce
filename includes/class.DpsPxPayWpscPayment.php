@@ -188,7 +188,7 @@ class DpsPxPayWpscPayment {
 	* @throws DpsPxPayWpscException
 	*/
 	protected function validate() {
-		$errors = array();
+		$errors = [];
 
 		if (strlen($this->userID) === 0) {
 			$errors[] = _x('userID cannot be empty.', 'validation error', 'dps-pxpay-for-wp-ecommerce');
@@ -321,15 +321,15 @@ class DpsPxPayWpscPayment {
 	*/
 	protected function xmlPostRequest($url, $request) {
 		// execute the request, and retrieve the response
-		$response = wp_remote_post($url, array(
+		$response = wp_remote_post($url, [
 			'user-agent'	=> $this->httpUserAgent,
 			'sslverify'		=> $this->sslVerifyPeer,
 			'timeout'		=> 60,
-			'headers'		=> array(
+			'headers'		=>	[
 									'Content-Type'		=> 'text/xml; charset=utf-8',
-							   ),
+								],
 			'body'			=> $request,
-		));
+		]);
 
 		// check for http error
 		$this->checkHttpResponse($response);

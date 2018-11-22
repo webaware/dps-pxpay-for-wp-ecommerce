@@ -1,16 +1,16 @@
 <?php
 /*
 Plugin Name: DPS PxPay for WP eCommerce
-Plugin URI:
+Plugin URI: https://wordpress.org/plugins/dps-pxpay-for-wp-ecommerce/
 Description: Integrate DPS PxPay with the WP eCommerce online shop
-Version: 1.0.1
+Version: 1.1.0
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Text Domain: dps-pxpay-for-wp-ecommerce
 */
 
 /*
-copyright (c) 2016 WebAware Pty Ltd (email : support@webaware.com.au)
+copyright (c) 2016-2018 WebAware Pty Ltd (email : support@webaware.com.au)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -34,8 +34,14 @@ if (!defined('ABSPATH')) {
 define('DPS_PXPAY_WPSC_PLUGIN_FILE', __FILE__);
 define('DPS_PXPAY_WPSC_PLUGIN_ROOT', dirname(__FILE__) . '/');
 define('DPS_PXPAY_WPSC_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
-define('DPS_PXPAY_WPSC_VERSION', '1.0.1');
+define('DPS_PXPAY_WPSC_MIN_PHP', '5.6');
+define('DPS_PXPAY_WPSC_VERSION', '1.1.0');
 
-// initialise plugin
-require DPS_PXPAY_WPSC_PLUGIN_ROOT . 'includes/class.DpsPxPayWpscPlugin.php';
-DpsPxPayWpscPlugin::getInstance();
+require DPS_PXPAY_WPSC_PLUGIN_ROOT . 'includes/functions-global.php';
+
+if (version_compare(PHP_VERSION, DPS_PXPAY_WPSC_MIN_PHP, '<')) {
+	add_action('admin_notices', 'dps_pxpay_wpsc_fail_php_version');
+	return;
+}
+
+require DPS_PXPAY_WPSC_PLUGIN_ROOT . 'includes/bootstrap.php';

@@ -34,7 +34,7 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 	*/
 	public static function register($gateways) {
 		// register the gateway class and additional functions
-		$gateways[] = array (
+		$gateways[] = [
 			'name'						=> _x('DPS Payment Express PxPay', 'gateway name', 'dps-pxpay-for-wp-ecommerce'),
 			'api_version'				=> 2.0,
 			'image'						=> plugins_url('images/icon-dps-24x24.png', DPS_PXPAY_WPSC_PLUGIN_FILE),
@@ -43,21 +43,21 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 			'has_recurring_billing'		=> false,
 			'wp_admin_cannot_cancel'	=> true,
 			'display_name'				=> _x('PxPay Credit Card Payment', 'display name', 'dps-pxpay-for-wp-ecommerce'),
-			'form'						=> array(__CLASS__, 'configForm'),
-			'submit_function'			=> array(__CLASS__, 'saveConfig'),
+			'form'						=> [__CLASS__, 'configForm'],
+			'submit_function'			=> [__CLASS__, 'saveConfig'],
 			'payment_type'				=> 'credit_card',
-			'requirements'				=> array(
-												'php_version' => 5.2,
-											),
-		);
+			'requirements'				=>	[
+												'php_version' => DPS_PXPAY_WPSC_MIN_PHP,
+											],
+		];
 
 		// also register admin hooks if required
 		if (is_admin()) {
-			add_action('wpsc_billing_details_bottom', array(__CLASS__, 'actionBillingDetailsBottom'));
+			add_action('wpsc_billing_details_bottom', [__CLASS__, 'actionBillingDetailsBottom']);
 		}
 
-		add_action('admin_print_styles-settings_page_wpsc-settings', array(__CLASS__, 'printSettingsCSS'));
-		add_action('admin_footer-settings_page_wpsc-settings', array(__CLASS__, 'printSettingsScript'));
+		add_action('admin_print_styles-settings_page_wpsc-settings', [__CLASS__, 'printSettingsCSS']);
+		add_action('admin_footer-settings_page_wpsc-settings', [__CLASS__, 'printSettingsScript']);
 
 		self::maybeProcessDpsReturn();
 
@@ -84,13 +84,13 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 	public function construct_value_array() {
 		$options = self::getOptions();
 
-		$this->collected_gateway_data = array (
+		$this->collected_gateway_data = [
 			// additional fields from checkout
 			'txndata1'		=> self::getCollectedDataValue($options['txndata1']),
 			'txndata2'		=> self::getCollectedDataValue($options['txndata2']),
 			'txndata3'		=> self::getCollectedDataValue($options['txndata3']),
 			'email'			=> self::getCollectedDataValue($options['email']),
-		);
+		];
 
 		if ($options['merchant_ref']) {
 			$this->collected_gateway_data['merchant_ref'] = self::getCollectedDataValue($options['merchant_ref']);
@@ -188,9 +188,9 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 			$response = $paymentReq->processPayment();
 
 			if ($response->isValid && !empty($response->URI)) {
-				$log_details = array(
+				$log_details = [
 					'processed'			=> WPSC_Purchase_Log::INCOMPLETE_SALE,
-				);
+				];
 
 				wpsc_update_purchase_log_details($this->purchase_id, $log_details);
 
@@ -266,12 +266,12 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 		try {
 			if ($resultReq->isValid) {
 				if ($resultReq->Success) {
-					$log_details = array(
+					$log_details = [
 						'processed'			=> WPSC_Purchase_Log::ACCEPTED_PAYMENT,
 						'transactid'		=> $resultReq->DpsTxnRef,
 						'authcode'			=> $resultReq->AuthCode,
 						'notes'				=> $resultReq->ResponseText,
-					);
+					];
 
 					wpsc_update_purchase_log_details($this->purchase_id, $log_details);
 
@@ -284,11 +284,11 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 					// transaction was unsuccessful, so record transaction number and the error
 					$this->set_error_message(nl2br(esc_html($resultReq->ResponseText)));
 
-					$log_details = array(
+					$log_details = [
 						'processed'			=> WPSC_Purchase_Log::PAYMENT_DECLINED,
 						'transactid'		=> $resultReq->DpsTxnRef,
 						'notes'				=> $resultReq->ResponseText,
-					);
+					];
 					wpsc_update_purchase_log_details($this->purchase_id, $log_details);
 
 					$this->log_debug(sprintf('failed; invoice ref: %1$s, error: %2$s', $this->purchase_id, $resultReq->ResponseText));
@@ -382,7 +382,7 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 	public static function saveConfig() {
 		if (isset($_POST['dps_pxpay_wp_ecommerce'])) {
 			$newoptions = wp_unslash($_POST['dps_pxpay_wp_ecommerce']);
-			$options    = array();
+			$options    = [];
 
 			$options['userID']			= isset($newoptions['userID'])  ? trim(strip_tags($newoptions['userID']))  : '';
 			$options['userKey']			= isset($newoptions['userKey']) ? trim(strip_tags($newoptions['userKey'])) : '';
@@ -410,7 +410,7 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 	* @return array
 	*/
 	protected static function getOptions() {
-		$defaults = array(
+		$defaults = [
 			'userID'		=> '',
 			'userKey'		=> '',
 			'useTest'		=> 1,
@@ -425,9 +425,9 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 			'txndata2'		=> 0,
 			'txndata3'		=> 0,
 			'email'			=> 0,
-		);
+		];
 
-		$options = get_option(self::OPTION_NAME, array());
+		$options = get_option(self::OPTION_NAME, []);
 
 		return wp_parse_args($options, $defaults);
 	}
@@ -441,18 +441,18 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 		$options = self::getOptions();
 
 		if ($useTest) {
-			$creds = array(
+			$creds = [
 				'userID'		=> $options['testID'],
 				'userKey'		=> $options['testKey'],
 				'endpoint'		=> $options['testEnv'] === 'UAT' ? self::PXPAY_APIV2_TEST_URL : self::PXPAY_APIV2_URL,
-			);
+			];
 		}
 		else {
-			$creds = array(
+			$creds = [
 				'userID'		=> $options['userID'],
 				'userKey'		=> $options['userKey'],
 				'endpoint'		=> self::PXPAY_APIV2_URL,
-			);
+			];
 		}
 
 		return $creds;
@@ -483,7 +483,7 @@ class DpsPxPayWpscGateway extends wpsc_merchant {
 		// set up for processing the callback after everything has loaded properly
 		// fire after WPSC has loaded the customer, i.e. when wpsc_ready fires (but that action isn't available pre WPSC-3.8.14)
 		self::$dpsReturnArgs = $args;
-		add_action('init', array(__CLASS__, 'processDpsReturn'), 100);
+		add_action('init', [__CLASS__, 'processDpsReturn'], 100);
 
 		// stop WooCommerce Payment Express Gateway from intercepting other integrations' transactions!
 		unset($_GET['userid']);
