@@ -33,6 +33,7 @@ class DpsPxPayWpscPlugin {
 	*/
 	private function __construct() {
 		add_action('init', 'dps_pxpay_wpsc_load_text_domain');
+		add_action('admin_init', [$this, 'maybeAddSettingsLink']);
 		add_filter('plugin_row_meta', [$this, 'addPluginDetailsLinks'], 10, 2);
 		add_action('admin_notices', [$this, 'checkPrerequisites']);
 
@@ -75,6 +76,27 @@ class DpsPxPayWpscPlugin {
 		require DPS_PXPAY_WPSC_PLUGIN_ROOT . 'includes/class.DpsPxPayWpscLogging.php';
 
 		return DpsPxPayWpscGateway::register($gateways);
+	}
+
+	/**
+	* set hook for adding settings link, if user can change the settings
+	*/
+	public function maybeAddSettingsLink() {
+		if (current_user_can('manage_options')) {
+			add_action('plugin_action_links_' . DPS_PXPAY_WPSC_PLUGIN_NAME, [$this, 'addPluginActionLinks']);
+		}
+	}
+
+	/**
+	* add plugin action links
+	*/
+	public function addPluginActionLinks($links) {
+		// add settings link
+		$url = admin_url('options-general.php?page=wpsc-settings&tab=gateway');
+		$settings_link = sprintf('<a href="%s">%s</a>', esc_url($url), _x('Settings', 'plugin details links', 'dps-pxpay-for-wp-ecommerce'));
+		array_unshift($links, $settings_link);
+
+		return $links;
 	}
 
 	/**
