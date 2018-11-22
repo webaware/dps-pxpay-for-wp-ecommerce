@@ -1,6 +1,6 @@
 {
   "name": "dps-pxpay-for-wp-ecommerce",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "DPS PxPay for WP eCommerce",
   "homepage": "https://wordpress.org/plugins/dps-pxpay-for-wp-ecommerce/",
   "main": "Gruntfile.js",
