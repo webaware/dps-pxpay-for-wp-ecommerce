@@ -22,7 +22,7 @@ abstract class DpsPxPayWpscResponse {
 	*/
 	public function loadResponse($response) {
 		// prevent XML injection attacks, and handle errors without warnings
-		$oldDisableEntityLoader = libxml_disable_entity_loader(true);
+		$oldDisableEntityLoader = PHP_VERSION_ID >= 80000 ? true : libxml_disable_entity_loader(true);
 		$oldUseInternalErrors = libxml_use_internal_errors(true);
 
 		try {
@@ -36,12 +36,16 @@ abstract class DpsPxPayWpscResponse {
 			}
 
 			// restore old libxml settings
-			libxml_disable_entity_loader($oldDisableEntityLoader);
+			if (!$oldDisableEntityLoader) {
+				libxml_disable_entity_loader($oldDisableEntityLoader);
+			}
 			libxml_use_internal_errors($oldUseInternalErrors);
 		}
 		catch (Exception $e) {
 			// restore old libxml settings
-			libxml_disable_entity_loader($oldDisableEntityLoader);
+			if (!$oldDisableEntityLoader) {
+				libxml_disable_entity_loader($oldDisableEntityLoader);
+			}
 			libxml_use_internal_errors($oldUseInternalErrors);
 
 			throw new DpsPxPayWpscException(sprintf(__('Invalid response from Payment Express: %s', 'dps-pxpay-for-wp-ecommerce'), $e->getMessage()));

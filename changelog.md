@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.1.1, soon...
+
+* changed: don't call `libxml_disable_entity_loader()` in PHP 8.0 (now deprecated)
+
 ### 1.1.0, 2018-11-22
 
 * changed: requires minimum PHP version 5.6 (recommend version 7.2 or greater)
