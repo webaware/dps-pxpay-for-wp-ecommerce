@@ -6,9 +6,9 @@ Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=DPS+PxPay+for+WP+eCommerce
 Tags: dps, payment express, pxpay, wp ecommerce
 Requires at least: 4.3
-Tested up to: 5.3
+Tested up to: 5.7
 Requires PHP: 5.6
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,15 +94,14 @@ Developers can use these filter hooks to modify some invoice properties. Check t
 
 ## Upgrade Notice
 
-### 1.1.0
+### 1.1.1
 
-requires minimum PHP version 5.6 (recommend version 7.2 or greater)
+fix deprecated notice in PHP 8.0
 
 ## Changelog
 
-### 1.1.0
+### 1.1.1
 
-Released 2018-11-22
+Released 2021-03-04
 
-* changed: requires minimum PHP version 5.6 (recommend version 7.2 or greater)
-* tested to WordPress 5.0
+* changed: don't call `libxml_disable_entity_loader()` in PHP 8.0 (now deprecated)

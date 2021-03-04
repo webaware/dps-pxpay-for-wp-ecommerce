@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.1.1, soon...
+### 1.1.1, 2021-03-04
 
 * changed: don't call `libxml_disable_entity_loader()` in PHP 8.0 (now deprecated)
 

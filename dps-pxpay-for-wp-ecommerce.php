@@ -3,14 +3,14 @@
 Plugin Name: DPS PxPay for WP eCommerce
 Plugin URI: https://wordpress.org/plugins/dps-pxpay-for-wp-ecommerce/
 Description: Integrate DPS PxPay with the WP eCommerce online shop
-Version: 1.1.0
+Version: 1.1.1
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Text Domain: dps-pxpay-for-wp-ecommerce
 */
 
 /*
-copyright (c) 2016-2018 WebAware Pty Ltd (email : support@webaware.com.au)
+copyright (c) 2016-2021 WebAware Pty Ltd (email : support@webaware.com.au)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -35,7 +35,7 @@ define('DPS_PXPAY_WPSC_PLUGIN_FILE', __FILE__);
 define('DPS_PXPAY_WPSC_PLUGIN_ROOT', dirname(__FILE__) . '/');
 define('DPS_PXPAY_WPSC_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 define('DPS_PXPAY_WPSC_MIN_PHP', '5.6');
-define('DPS_PXPAY_WPSC_VERSION', '1.1.0');
+define('DPS_PXPAY_WPSC_VERSION', '1.1.1');
 
 require DPS_PXPAY_WPSC_PLUGIN_ROOT . 'includes/functions-global.php';
 
